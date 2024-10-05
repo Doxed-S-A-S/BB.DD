@@ -237,7 +237,7 @@ CREATE TABLE
             id_evento int unsigned not null UNIQUE AUTO_INCREMENT,
             nombre_evento varchar (50) not null,
             imagen varchar (50) not null,
-            fecha_evento datetime not null,
+            fecha_evento datetime not null CHECK(fecha_evento >= sysdate()),
             descripcion_evento tinytext not null,
             eliminado tinyint(1) NOT NULL default '0',
             FOREIGN KEY (id_post) REFERENCES posts (id_post)
@@ -251,3 +251,25 @@ CREATE TABLE
         FOREIGN KEY (id_evento) REFERENCES evento (id_evento),
         FOREIGN KEY (id_grupo) REFERENCES grupos (id_grupo)
     );
+
+
+create user 'api_client'@'localhost' identified by 'api@llpassword';
+create user 'moderador_bko'@'localhost' identified by 'backoffice@mod';
+create user 'admin_bko'@'localhost' identified by 'backoffice@admin';
+create user 'database_adm'@'localhost' identified by 'databaseallow';
+
+create role 'api_role';
+grant SELECT,INSERT,UPDATE on LinguaLinkDB.* to 'api_role';
+grant 'api_role' to 'api_client'@'localhost';
+
+create role 'backoffice_modders_role';
+grant SELECT,INSERT,UPDATE on LinguaLinkDB.* to 'backoffice_modders_role';
+grant 'backoffice_modders_role' to 'moderador_bko'@'localhost';
+
+create role 'backoffice_admins_role';
+grant SELECT,INSERT,UPDATE,DELETE on LinguaLinkDB.* to 'backoffice_admins_role';
+grant 'backoffice_admins_role' to 'database_adm'@'localhost';
+
+create role 'database_admin_role';
+grant all PRIVILEGES on *.* to database_admin_role with grant option;
+grant 'database_admin_role' to 'database_adm'@'localhost';
