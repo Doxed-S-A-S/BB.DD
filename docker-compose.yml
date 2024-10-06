@@ -1,0 +1,15 @@
+services:
+  mysql:
+    image: mysql:8
+    container_name: LinguaLink
+    tty: true
+    ports:
+      - 3306:3306
+    volumes:
+      - mysql-volume:/home/matt/sql
+    environment:
+      - MYSQL_ROOT_PASSWORD=1234
+      - LANG=en_US.UTF-8
+      - LC_ALL=en_US.UTF-8
+volumes:
+  mysql-volume: {} 
