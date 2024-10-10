@@ -1,8 +1,6 @@
 drop database LinguaLinkDB;
 
-create database LinguaLinkDB CHARSET utf8mb4;
-
-ALTER DATABASE LinguaLinkDB CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+create database LinguaLinkDB CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 USE LinguaLinkDB;
 
@@ -10,7 +8,7 @@ CREATE TABLE
     muro (
         id_muro int unsigned PRIMARY KEY AUTO_INCREMENT,
         detalles tinytext not null,
-        pub_destacada int not null,
+        pub_destacada int unsigned,
         biografia tinytext not null
     );
 
@@ -28,19 +26,19 @@ CREATE TABLE
     grupos (
         id_grupo int unsigned PRIMARY KEY AUTO_INCREMENT,
         nombre_grupo varchar(70) UNIQUE not null,
-        fecha_creacion DATE not null DEFAULT (CURRENT_DATE),
+        fecha_creacion DATE not null DEFAULT (CURRENT_DATE) check(fecha_creacion <= sysdate()),
         descripcion tinytext not null,
-        privacidad boolean not null,
+        privacidad tinyint(1) not null default '0' check (privacidad BETWEEN 0 and 1),
         banner varchar(100),
-        reports tinyint NOT NULL default '0',
-        eliminado tinyint(1) NOT NULL default '0'
+        reports tinyint unsigned NOT NULL default '0',
+        eliminado tinyint(1) NOT NULL default '0' check (eliminado BETWEEN 0 and 1)
     );
 
 CREATE TABLE
     mensajes (
         id_mensaje int unsigned PRIMARY KEY AUTO_INCREMENT,
         contenido tinytext not null,
-        fecha_envio DATETIME not null DEFAULT CURRENT_TIMESTAMP()
+        fecha_envio DATETIME not null DEFAULT CURRENT_TIMESTAMP() check(fecha_envio <= sysdate())
     );
 
 CREATE TABLE
@@ -53,18 +51,18 @@ CREATE TABLE
     notificaciones (
         id_notificacion int unsigned PRIMARY KEY AUTO_INCREMENT,
         contenido tinytext not null,
-        fecha_envio DATE not null DEFAULT (CURRENT_DATE),
-        leida tinyint (1) NOT NULL DEFAULT '0'
+        fecha_envio DATE not null DEFAULT (CURRENT_DATE) check(fecha_envio <= sysdate()),
+        leida tinyint (1) NOT NULL DEFAULT '0' check (leida BETWEEN 0 and 1)
     );
 
 CREATE TABLE 
     set_preferencias (
         id_preferencia int unsigned primary key AUTO_INCREMENT,
         idioma_app varchar(3) DEFAULT ("spa") NOT NULL, -- usamos ( ISO 639-2 ) por eso varchar 3
-        recordar_contrasena boolean default false NOT NULL,
+        recordar_contrasena tinyint (1) NOT NULL DEFAULT '0' check (recordar_contrasena BETWEEN 0 and 1),
         preferencias_contenido varchar(50),
-        notificaciones_push boolean default false NOT NULL,
-        muro_privado boolean default false NOT NULL,
+        notificaciones_push tinyint (1) NOT NULL DEFAULT '0' check (notificaciones_push BETWEEN 0 and 1),
+        muro_privado tinyint (1) NOT NULL DEFAULT '0' check (muro_privado BETWEEN 0 and 1),
         tema_de_apariencia ENUM ('claro', 'oscuro') not null
     );
 
@@ -72,14 +70,14 @@ CREATE TABLE
     cuenta (
         id_cuenta INT unsigned PRIMARY KEY AUTO_INCREMENT,
         nombre_usuario varchar (50) UNIQUE not null,
-        fecha_registro DATE NOT NULL DEFAULT (CURRENT_DATE),
+        fecha_registro DATE NOT NULL DEFAULT (CURRENT_DATE) check(fecha_registro <= sysdate()),
         imagen_perfil VARCHAR(100) NOT NULL,
         rol_cuenta ENUM ('usuario','profesor','escuela') not null,
-        reports tinyint DEFAULT 0 not null,
+        reports tinyint unsigned DEFAULT 0 not null,
         id_usuario int unsigned NOT NULL,
         id_muro INT unsigned NOT NULL,
         id_preferencia INT unsigned NOT NULL, 
-        eliminado boolean NOT NULL default false,
+        eliminado tinyint(1) NOT NULL default '0' check (eliminado BETWEEN 0 and 1),
         FOREIGN KEY (id_usuario) references usuario(id_usuario),
         FOREIGN KEY (id_muro) REFERENCES muro (id_muro),
         FOREIGN KEY (id_preferencia) references set_preferencias(id_preferencia)
@@ -98,14 +96,14 @@ CREATE TABLE
 CREATE TABLE
     posts (
         id_post int unsigned not null PRIMARY KEY AUTO_INCREMENT,
-        fecha_creacion DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP(),
+        fecha_creacion DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP() check(fecha_creacion <= sysdate()),
         url_contenido varchar(100) not null,
         url_imagen varchar(100) not null,
         tipo_contenido varchar(50) not null,
         contenido TEXT not null,
         id_cuenta int unsigned not null,
-        reports tinyint NOT NULL default '0',
-        eliminado tinyint(1) NOT NULL default '0',
+        reports tinyint unsigned NOT NULL default '0',
+        eliminado tinyint(1) NOT NULL default '0' check(eliminado BETWEEN 0 and 1),
         FOREIGN KEY (id_cuenta) REFERENCES cuenta (id_cuenta)
     );
 
@@ -120,9 +118,9 @@ CREATE TABLE
     comentarios (
         id_comentario int unsigned not null PRIMARY KEY AUTO_INCREMENT,
         id_post int unsigned not null,
-        fecha_creacion DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP(),        
+        fecha_creacion DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP() check(fecha_creacion <= sysdate()),        
         contenido tinytext not null,
-        eliminado tinyint(1) NOT NULL default '0',
+        eliminado tinyint(1) NOT NULL default '0' check(eliminado BETWEEN 0 and 1),
         FOREIGN KEY (id_post) REFERENCES posts (id_post)
     );
 
@@ -183,7 +181,7 @@ CREATE TABLE
     comparte (
         id_post int unsigned not null,
         id_cuenta int unsigned not null,
-        fecha_compartido DATETIME DEFAULT CURRENT_TIMESTAMP(),
+        fecha_compartido DATETIME DEFAULT CURRENT_TIMESTAMP() check(fecha_compartido <= sysdate()),
         primary key (id_cuenta, id_post),
         FOREIGN KEY (id_cuenta) REFERENCES cuenta (id_cuenta),
         FOREIGN KEY (id_post) REFERENCES posts (id_post)
@@ -239,7 +237,7 @@ CREATE TABLE
             nombre_evento varchar (50) not null,
             fecha_evento datetime not null CHECK(fecha_evento >= sysdate()),
             descripcion_evento tinytext not null,
-            eliminado tinyint(1) NOT NULL default '0',
+            eliminado tinyint(1) NOT NULL default '0' check(eliminado BETWEEN 0 and 1),
             FOREIGN KEY (id_post) REFERENCES posts (id_post)
     );
 
