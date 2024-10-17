@@ -80,13 +80,13 @@ VALUES
 ('luis_it', 'luis@mail.com', 'pass112', 5);
 
 -- Datos para la tabla 'posts'
-INSERT INTO posts (url_contenido, tipo_contenido, contenido, id_cuenta) 
+INSERT INTO posts (url_contenido, tipo_contenido, contenido, id_cuenta,url_imagen) 
 VALUES 
-('post1.jpg', 'imagen', 'Primer post de Juan', 1),
-('post2.mp4', 'video', 'Video de Maria sobre arte', 2),
-('post3.png', 'imagen', 'Foto de Carlos sobre tecnología', 3),
-('post4.pdf', 'documento', 'Guía de Ana sobre enseñanza', 4),
-('post5.jpg', 'imagen', 'Luis compartiendo sus viajes', 5);
+('post1.jpg', 'imagen', 'Primer post de Juan', 1,'post1.jpg'),
+('post2.mp4', 'video', 'Video de Maria sobre arte', 2,'post1.jpg'),
+('post3.png', 'imagen', 'Foto de Carlos sobre tecnología', 3,'post1.jpg'),
+('post4.pdf', 'documento', 'Guía de Ana sobre enseñanza', 4,'post1.jpg'),
+('post5.jpg', 'imagen', 'Luis compartiendo sus viajes', 5,'post1.jpg');
 
 -- Datos para la tabla 'upvote'
 INSERT INTO upvote (id_post) 
@@ -215,13 +215,13 @@ VALUES
 (5, 5);
 
 -- Datos para la tabla 'evento'
-INSERT INTO evento (id_post, nombre_evento, imagen, fecha_evento, descripcion_evento) 
+INSERT INTO evento (id_post, nombre_evento, fecha_evento, descripcion_evento) 
 VALUES 
-(1, 'Evento Cultural', 'evento1.jpg', '2024-10-10 18:00:00', 'Un evento para conocer nuevas culturas.'),
-(2, 'Charla sobre tecnología', 'evento2.jpg', '2024-10-20 15:00:00', 'Discusión sobre IA y el futuro de la tecnología.'),
-(3, 'Festival de Cine', 'evento3.jpg', '2024-09-25 20:00:00', 'Un festival de cine independiente.'),
-(4, 'Exposición de Arte', 'evento4.jpg', '2024-11-05 10:00:00', 'Exposición de arte contemporáneo.'),
-(5, 'Torneo de Ajedrez', 'evento5.jpg', '2024-12-01 09:00:00', 'Torneo de ajedrez abierto.');
+(1, 'Evento Cultural', '2025-10-10 18:00:00', 'Un evento para conocer nuevas culturas.'),
+(2, 'Charla sobre tecnología', '2025-10-20 15:00:00', 'Discusión sobre IA y el futuro de la tecnología.'),
+(3, 'Festival de Cine', '2025-09-25 20:00:00', 'Un festival de cine independiente.'),
+(4, 'Exposición de Arte', '2025-11-05 10:00:00', 'Exposición de arte contemporáneo.'),
+(5, 'Torneo de Ajedrez',  '2025-12-01 09:00:00', 'Torneo de ajedrez abierto.');
 
 -- Datos para la tabla 'organiza'
 INSERT INTO organiza (id_grupo, id_evento) 

@@ -1,3 +1,4 @@
+<<<<<<< HEAD:LingaLinkDB.sql
 drop database LinguaLinkDB;
 
 create database LinguaLinkDB CHARSET utf8mb4;
@@ -31,6 +32,7 @@ CREATE TABLE
         fecha_creacion DATE not null DEFAULT (CURRENT_DATE),
         descripcion tinytext not null,
         privacidad boolean not null,
+        url_imagen varchar(100),
         imagen_banner varchar(100),
         reports tinyint NOT NULL default '0',
         eliminado tinyint(1) NOT NULL default '0'
@@ -272,4 +274,5 @@ grant 'backoffice_admins_role' to 'database_adm'@'localhost';
 
 create role 'database_admin_role';
 grant all PRIVILEGES on *.* to database_admin_role with grant option;
+
 grant 'database_admin_role' to 'database_adm'@'localhost';
