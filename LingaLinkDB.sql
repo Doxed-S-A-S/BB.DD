@@ -31,7 +31,8 @@ CREATE TABLE
         fecha_creacion DATE not null DEFAULT (CURRENT_DATE),
         descripcion tinytext not null,
         privacidad boolean not null,
-        banner varchar(100),
+        url_imagen varchar(100),
+        imagen_banner varchar(100),
         reports tinyint NOT NULL default '0',
         eliminado tinyint(1) NOT NULL default '0'
     );
