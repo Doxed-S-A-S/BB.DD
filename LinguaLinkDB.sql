@@ -1,4 +1,3 @@
-<<<<<<< HEAD:LingaLinkDB.sql
 drop database LinguaLinkDB;
 
 create database LinguaLinkDB CHARSET utf8mb4;
