@@ -251,6 +251,14 @@ CREATE TABLE
         FOREIGN KEY (id_grupo) REFERENCES grupos (id_grupo)
     );
 
+CREATE TABLE
+    moderadores_bo(
+        id_moderador int unsigned PRIMARY KEY AUTO_INCREMENT,
+        user varchar (30) not null,
+        pass varchar (200) not null,
+        super boolean NOT NULL
+    )
+
 
 create user 'api_client'@'localhost' identified by 'api@llpassword';
 create user 'moderador_bko'@'localhost' identified by 'backoffice@mod';

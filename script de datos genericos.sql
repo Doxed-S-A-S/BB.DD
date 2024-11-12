@@ -231,3 +231,8 @@ VALUES
 (3, 3),
 (4, 4),
 (5, 5);
+
+
+INSERT INTO moderadores_bo (user, pass, super) VALUES ('JoseJasinto', 'abc123', true);
+INSERT INTO moderadores_bo (user, pass, super) VALUES ('Moncho', 'B77F', true);
+INSERT INTO moderadores_bo (user, pass, super) VALUES ('FacundoFranco', 'Contraloca', false);
