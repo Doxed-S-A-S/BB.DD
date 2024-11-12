@@ -17,13 +17,13 @@ VALUES
 ('Luis', 'Rodriguez', NULL, 'IT', 'ita');
 
 -- Datos para la tabla 'grupos'
-INSERT INTO grupos (nombre_grupo, descripcion, privacidad, banner) 
+INSERT INTO grupos (nombre_grupo, descripcion, privacidad, url_imagen ,imagen_banner ) 
 VALUES 
-('Grupo Cultural', 'Grupo de intercambio cultural', 1, 'banner1.jpg'),
-('Aprendiendo Español', 'Grupo para aprender español', 0, 'banner2.jpg'),
-('Tecnología Avanzada', 'Discusión sobre nuevas tecnologías', 0, 'banner3.jpg'),
-('Grupo de Viajes', 'Compartir experiencias de viaje', 1, 'banner4.jpg'),
-('Club de Lectura', 'Grupo para compartir libros y opiniones', 0, 'banner5.jpg');
+('Grupo Cultural', 'Grupo de intercambio cultural', 1, 'banner1.jpg','banner1.jpg'),
+('Aprendiendo Español', 'Grupo para aprender español', 0, 'banner2.jpg','banner2.jpg'),
+('Tecnología Avanzada', 'Discusión sobre nuevas tecnologías', 0, 'banner3.jpg','banner3.jpg'),
+('Grupo de Viajes', 'Compartir experiencias de viaje', 1, 'banner4.jpg','banner4.jpg'),
+('Club de Lectura', 'Grupo para compartir libros y opiniones', 0, 'banner5.jpg','banner5.jpg');
 
 -- Datos para la tabla 'mensajes'
 INSERT INTO mensajes (contenido) 
@@ -231,3 +231,8 @@ VALUES
 (3, 3),
 (4, 4),
 (5, 5);
+
+
+INSERT INTO moderadores_bo (user, pass, super) VALUES ('JoseJasinto', 'abc123', true);
+INSERT INTO moderadores_bo (user, pass, super) VALUES ('Moncho', 'B77F', true);
+INSERT INTO moderadores_bo (user, pass, super) VALUES ('FacundoFranco', 'Contraloca', false);
