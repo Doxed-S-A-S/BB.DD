@@ -9,6 +9,7 @@ CREATE TABLE
         id_muro int unsigned PRIMARY KEY AUTO_INCREMENT,
         detalles tinytext not null,
         pub_destacada int not null,
+        imágen_banner varchar(150),
         biografia tinytext not null
     );
 
@@ -259,7 +260,7 @@ CREATE TABLE
         super boolean NOT NULL
     )
 
-
+-- Contraseñas de ejemplo, no cuentan con seguridad
 create user 'api_client'@'localhost' identified by 'api@llpassword';
 create user 'moderador_bko'@'localhost' identified by 'backoffice@mod';
 create user 'admin_bko'@'localhost' identified by 'backoffice@admin';
