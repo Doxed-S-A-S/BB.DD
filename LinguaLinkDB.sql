@@ -9,7 +9,7 @@ CREATE TABLE
         id_muro int unsigned PRIMARY KEY AUTO_INCREMENT,
         detalles tinytext not null,
         pub_destacada int not null,
-        imágen_banner varchar(150),
+        imagen_banner varchar(150),
         biografia tinytext not null
     );
 
